@@ -82,7 +82,7 @@ struct SystemData {
   String statusWaterLevel3;
 
   const float turbidityThreshold = 0.78;
-  const float waterLevelThreshold = 0.5;
+  const float waterLevelThreshold = 1.0;  // 0.5 volt, 1.0 cm
 
   float turbidity = 0.5;
   float height = 0.0;
@@ -113,7 +113,7 @@ struct SystemData {
   float minPh;
   float minTemperature;
 
-  int systemEnable = 1;
+  int systemEnable = 0;
   int isWiFiConnect = 0;
 
   int waterPumpState = 0;

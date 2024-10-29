@@ -93,12 +93,15 @@ void loop() {
       var.height = var.height < 0 ? 0 : var.height;
       heightAverageTimer = millis();
     }
-    var.turbidity = sensor["turbid"]["volt"];  // Turbid on / off
-    var.ph = sensor["ph"]["val"];
-    var.temperature = sensor["temp"];
-    var.waterLevel1 = sensor["wl1"]["volt"];
-    var.waterLevel2 = sensor["wl2"]["volt"];
-    var.waterLevel3 = sensor["wl3"]["volt"];
+    var.turbidity = (int)sensor["turbid"]["volt"];                                                            // on / off
+    var.ph = sensor["ph"]["val"];                                                                             // on / off
+    var.temperature = sensor["temp"];                                                                         // on / off
+    var.waterLevel1 = sensor["wl1"]["volt"];                                                                  // on / off
+    var.waterLevel2 = sensor["wl1"]["volt"];                                                                  // on / off
+    var.waterLevel3 = sensor["wl1"]["volt"];                                                                  // on / off
+    var.waterLevel1 = wlCalibration.voltageToValue(sensor["wl1"]["volt"].as<float>(), LINEAR_INTERPOLATION);  // on / off
+    var.waterLevel2 = wlCalibration.voltageToValue(sensor["wl2"]["volt"].as<float>(), LINEAR_INTERPOLATION);  // on / off
+    var.waterLevel3 = wlCalibration.voltageToValue(sensor["wl3"]["volt"].as<float>(), LINEAR_INTERPOLATION);  // on / off
 
     // var.phFirebase = var.ph + (var.ph * 0.018 * ((float)random(-100, 100) / 100.0));
     // var.turbidityFirebase = var.turbidity + (var.turbidity * 0.018 * ((float)random(-100, 100) / 100.0));

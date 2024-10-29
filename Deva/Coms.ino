@@ -22,7 +22,8 @@ void usbCommunicationTask(const String& dataRecv) {
       Serial.println();
     }
     // D#4
-    if (dataHeader == "TURB") var.turbidity = (var.turbidity == 0.5) ? 1.5 : 0.5;      // no value
+    // if (dataHeader == "TURB") var.turbidity = (var.turbidity == 0.5) ? 1.5 : 0.5;      // no value
+    if (dataHeader == "TURB") var.turbidity = dataValue.toInt();                       // no value
     if (dataHeader == "HEIG") var.height = dataValue.toFloat();                        // sensor
     if (dataHeader == "PEHA") var.ph = dataValue.toFloat();                            // 3.74, 6.89, 9.31
     if (dataHeader == "TEMP") var.temperature = dataValue.toFloat();                   // sensor

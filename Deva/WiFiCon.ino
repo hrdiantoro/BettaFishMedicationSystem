@@ -14,7 +14,7 @@ void wifiConTask() {
     //   Serial.println("| Failed to connect");
 
     // firebase.connectToWiFi("TIMEOSPACE", "1234Saja");
-    firebase.connectToWiFi("Deva", "devapratama");
+    firebase.connectToWiFi("TIMEOSPACE", "1234Saja");
     // firebase.connectToWiFi("Devaskripsi", "devapratama");
     configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
     firebase.waitConnection(3000);
@@ -31,13 +31,17 @@ void wifiConTask() {
         static uint32_t dataSendTimer;
         if (millis() - dataSendTimer >= 1000) {
           JsonDocument setJson;
-          setJson["kekeruhan"] = var.statusTurbidity;
+          // setJson["kekeruhan"] = var.statusTurbidity;
+          setJson["kekeruhan"] = String((int)var.turbidity);
           setJson["ketinggian"] = String(var.height, 2);
           setJson["ph"] = String(var.ph, 2);
           setJson["suhu"] = String(var.temperature, 2);
           setJson["waterlevel1"] = var.statusWaterLevel1;
           setJson["waterlevel2"] = var.statusWaterLevel2;
           setJson["waterlevel3"] = var.statusWaterLevel3;
+          // setJson["waterlevel1"] = String(var.waterLevel1, 2);
+          // setJson["waterlevel2"] = String(var.waterLevel2, 2);
+          // setJson["waterlevel3"] = String(var.waterLevel3, 2);
           firebase.setJson("/data", setJson, FirebaseModule::resultStatusCallback);
 
           firebase.getJson(
@@ -86,7 +90,8 @@ void wifiConTask() {
           if (var.saltState) {
             firebase.pushJson(
               "/data_riwayat", [](JsonVariant pushJson) -> JsonVariant {
-                pushJson["kekeruhan"] = var.statusTurbidity;
+                // pushJson["kekeruhan"] = var.statusTurbidity;
+                pushJson["kekeruhan"] = String((int)var.turbidity);
                 pushJson["ketinggian"] = String(var.height, 2);
                 pushJson["ph"] = String(var.ph);
                 pushJson["suhu"] = String(var.temperature);
